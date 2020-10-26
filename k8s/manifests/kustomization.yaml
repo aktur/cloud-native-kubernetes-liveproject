@@ -14,3 +14,4 @@ secretGenerator:
   namespace: sns
   files:
     - secrets/redis-pass.txt
+    - secrets/redis.conf

@@ -18,6 +18,7 @@ spec:
       containers:
       - name: redis
         image: redis:6.0.4-alpine
+        args: ["/redis/redis.conf"]
         ports:
         - containerPort: 6379
         resources:
@@ -27,6 +28,9 @@ spec:
           limits:
             cpu: 300m
             memory: 120Mi
+        volumeMounts:
+        - name: conf
+          mountPath: "/redis"
       volumes:
       - name: conf
         secret:
