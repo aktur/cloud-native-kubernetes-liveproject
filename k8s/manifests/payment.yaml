@@ -25,6 +25,11 @@ spec:
             value: "production"
           - name: CONFIG_DIR
             value: "/opt/sns/app/config"
+          - name: REDIS_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: redis-pass
+                key: redis-pass.txt
         imagePullPolicy: "Never"
         resources:
           requests:

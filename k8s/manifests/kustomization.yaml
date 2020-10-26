@@ -9,3 +9,8 @@ resources:
 - redis.yaml
 - payment.yaml
 
+secretGenerator:
+- name: redis-pass
+  namespace: sns
+  files:
+    - secrets/redis-pass.txt
