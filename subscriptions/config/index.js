@@ -7,26 +7,10 @@ let determineConfigDir = () => {
     return process.env.CONFIG_DIR
 }
 
-let determineEnv = () => {
-
-    const defaultEnv = 'development'
-
-    if (process.env.NODE_ENV === undefined || process.env.NODE_ENV == null) {
-        return defaultEnv
-    } else if (process.env.NODE_ENV == 'development') {
-        return 'development'
-    } else if (process.env.NODE_ENV == 'production') {
-        return 'production'
-    } else {
-        return defaultEnv
-    }
-}
-
 let determineConfigFile = () => {
 
     const config_dir = determineConfigDir()
-    const env = determineEnv()
-    return(`${config_dir}/config.${env}.json`)
+    return(`${config_dir}/config.json`)
 }
 
 module.exports = function () {
