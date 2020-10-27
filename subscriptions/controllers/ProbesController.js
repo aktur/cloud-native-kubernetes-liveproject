@@ -1,11 +1,11 @@
 class ProbesController {
 
     async handleLiveness(req, res) {
-        res.send({ "ok": true })
+        // TODO: Implementation       
     }
 
     async handleReadiness(req, res) {
-        res.send({ "ok": true })
+        // TODO: Implementation       
     }
 }
 
