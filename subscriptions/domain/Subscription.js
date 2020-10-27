@@ -11,8 +11,8 @@ class Subscription {
 
     constructor(product, monthsPurchased, datePurchased = moment.utc().toISOString(), status = "pending") {
         this.product = product,
-        this.monthsPurchased = monthsPurchased,
-        this.datePurchasedInternal = moment(datePurchased)
+            this.monthsPurchased = monthsPurchased,
+            this.datePurchasedInternal = moment(datePurchased)
         this.status = status
     }
 
@@ -29,8 +29,8 @@ class Subscription {
     }
 
     get isActive() {
-        
-        if(!this.status || this.status != "active") {
+
+        if (!this.status || this.status != "active") {
             return false
         }
 
@@ -40,14 +40,14 @@ class Subscription {
     // Returns the active months remaining for the subscription.
     get activeMonthsRemaining() {
 
-        if(!this.isActive) {
+        if (!this.isActive) {
             return 0
         }
 
         const diff = moment.duration(this.subscriptionEndDate.diff(moment.utc()))
         const months = diff.asMonths()
 
-        if(months <= 0) {
+        if (months <= 0) {
             return 0
         }
 
@@ -61,18 +61,18 @@ class Subscription {
         const currentMonths = this.monthsPurchased
         let originalMonths = 0
 
-        if(originalSubscription != null && originalSubscription.isActive) {
+        if (originalSubscription != null && originalSubscription.isActive) {
             originalMonths = originalSubscription.monthsPurchased
         }
 
         const diff = currentMonths - originalMonths
 
-        if(diff == 0) {
+        if (diff == 0) {
             this.status = "active"
             return
         }
 
-        if(diff < 0) {
+        if (diff < 0) {
             await this.processRefund(diff * -1 * pricePerMonth)
         } else {
             await this.processPayment(diff * pricePerMonth)
@@ -84,14 +84,14 @@ class Subscription {
     // This method cancels a subscription if it is active.
     async cancel() {
 
-        if(!this.isActive) {
+        if (!this.isActive) {
             logger.info("Subscription is not active. Not cancelling.")
             return
         }
 
         const amount = this.activeMonthsRemaining * pricePerMonth
 
-        if(amount > 0) {
+        if (amount > 0) {
             logger.info(`Refunding: ${amount}`)
             await this.processRefund(amount)
         } else {
@@ -105,7 +105,7 @@ class Subscription {
     // for the given amount.
     async processPayment(amount) {
         // TODO: Implement.
-        // This sohhuld communicate with the payment service to make a payment.
+        // This should communicate with the payment service to make a payment.
     }
 
     // This method will process a refund on the current subscription

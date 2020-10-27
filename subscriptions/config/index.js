@@ -1,16 +1,36 @@
 let determineConfigDir = () => {
-    // TODO: Fill in code here to determine the configuration directory.
-    // This is likely similar to your solution for milestone 1.
+
+    if (process.env.CONFIG_DIR === undefined || process.env.CONFIG_DIR == null) {
+        return '.'
+    }
+
+    return process.env.CONFIG_DIR
 }
 
-let determineConfigFile =() => {
+let determineEnv = () => {
 
-    // TODO: Fill in code here to determine the configuration file.
-    // This is likely similar to your solution for milestone 1.
+    const defaultEnv = 'development'
+
+    if (process.env.NODE_ENV === undefined || process.env.NODE_ENV == null) {
+        return defaultEnv
+    } else if (process.env.NODE_ENV == 'development') {
+        return 'development'
+    } else if (process.env.NODE_ENV == 'production') {
+        return 'production'
+    } else {
+        return defaultEnv
+    }
 }
 
-module.exports = function() {
-        
+let determineConfigFile = () => {
+
+    const config_dir = determineConfigDir()
+    const env = determineEnv()
+    return(`${config_dir}/config.${env}.json`)
+}
+
+module.exports = function () {
+
     const configFile = determineConfigFile()
     return require(configFile)
 }
