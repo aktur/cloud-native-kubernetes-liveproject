@@ -9,6 +9,7 @@ resources:
 - redis.yaml
 - payment.yaml
 - subscriptions.yaml
+- ingress.yaml
 
 secretGenerator:
 - name: redis-conf
