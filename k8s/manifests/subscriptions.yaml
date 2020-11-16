@@ -31,9 +31,18 @@ spec:
       labels:
         app: subscriptions
     spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
       containers:
       - name: subscriptions
         image: sns-subscriptions:latest
+        securityContext:
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
         ports:
         - containerPort: 3001
         env:
@@ -67,6 +76,7 @@ spec:
         volumeMounts:
         - name: subscriptions-config
           mountPath: "/opt/sns/config"
+      serviceAccountName: sns-sa
       volumes:
       - name: subscriptions-config
         configMap:
